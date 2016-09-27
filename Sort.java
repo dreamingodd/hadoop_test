@@ -53,7 +53,7 @@ public class Sort {
 
 			for (IntWritable val : values) {
 
-				context.write(linenum, key);
+				context.write(linenum + ".", key + " " + val);
 
 				linenum = new IntWritable(linenum.get() + 1);
 			}
