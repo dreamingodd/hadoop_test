@@ -44,17 +44,21 @@ public class Sort {
 	}
 
 	public static class Reduce extends
-			Reducer<IntWritable, IntWritable, IntWritable, IntWritable> {
+			Reducer<IntWritable, IntWritable, Text, IntWritable> {
 
 		private static IntWritable linenum = new IntWritable(1);
 
 		public void reduce(IntWritable key, Iterable<IntWritable> values,
 				Context context) throws IOException, InterruptedException {
 
+			List<IntWritable> list = new ArrayList<IntWritable>();
+			// val always 1.
 			for (IntWritable val : values) {
-
-				context.write(linenum + ".", key + " " + val);
-
+				list.add(key);
+			}
+			// Reverse the order.
+			for (int i = list.size() - 1; i >= 0; i--) {
+				context.write(new Text(linenum + "."), list.get(i));
 				linenum = new IntWritable(linenum.get() + 1);
 			}
 
