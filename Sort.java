@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-import java.util.StringTokenizer;
+import java.util.*;
 
 import org.apache.hadoop.conf.Configuration;
 
@@ -61,6 +61,11 @@ public class Sort {
 				context.write(new Text(linenum + "."), list.get(i));
 				linenum = new IntWritable(linenum.get() + 1);
 			}
+                        for (int i = 0; i < list.size(); i++) {
+                                context.write(new Text(linenum + "."), list.get(i));
+                                linenum = new IntWritable(linenum.get() + 1);
+                        }
+
 
 		}
 	}
